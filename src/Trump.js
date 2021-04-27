@@ -1,39 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
-
-
+import axios from 'axios';
 
 function Trump(props) {
-  let voices;
-  let quote;
+  let [quote, setQuote] = useState('');
+  let [voices, setVoices] = useState([]);
+
+  //init tts
   let msg = new SpeechSynthesisUtterance();
 
-  speechSynthesis.addEventListener("voiceschanged", () => {
-    voices = speechSynthesis.getVoices();
-      const response = axios.get('http://tronalddump.io/random/quote')
-          .then((response) => {
-              quote = response.data.value;
-          });
-  });
+  //get english voices
+  useEffect(() => {
+    async function getVoices() {
+      let allVoices = await speechSynthesis.getVoices();
+      console.log(allVoices)
+      setVoices(allVoices.filter((voice) => {
+        return voice.lang.includes('en')
+      }))
+    }
+    getVoices();
+  }, []);
 
-  function speak() {
-    axios.get('http://tronalddump.io/random/quote')
-        .then((response) => {
-            quote = response.data.value;
-            if (voices.length) {
-                msg.voice = voices[Math.floor(Math.random() * voices.length)];
-                msg.text = quote;
-                window.speechSynthesis.speak(msg);
-            }
-            console.log(voices);
-            console.log(quote);
-        });
-  }
+  //talk and set text quote for use on page
+
+
+  let tempStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    width: '300px',
+    height: '20px',
+    marginTop: '20px'
+  };
 
   return (
-    <div>
-      <h1>Speech Ting</h1>
-      <button onClick={speak}>Speech</button>
+    <div style={tempStyles}>
+      {/*<span>{quote}</span>*/}
     </div>
   );
 }

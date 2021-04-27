@@ -6,3 +6,12 @@
 .rs-play {
   padding: 100px
 }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-center {
+  align-items: center;
+}
