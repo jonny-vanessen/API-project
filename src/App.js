@@ -14,7 +14,7 @@ function App() {
           <img id='kanye-img' src='../assets/kanye.jpg' alt='kanye' />
         </div>
         <div className='message-container'>
-          <Conversation log={log} />
+          <Conversation />
         </div>
         <div className='cartoon-contain'>
           <img id='trump-img' src='../assets/trump.png' alt='trump' />
