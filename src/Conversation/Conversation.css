@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'SF Pro';
+  src: url('SFPro-Regular.woff2') format('woff2'),
+    url('SFPro-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+body {
+  font-family: 'SF Pro';
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+}
+
+.body-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.body-container img {
+  height: 500px;
+}
+
+.message-container {
+  border-radius: 30px;
+  background-color: white;
+  height: 600px;
+  width: 300px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.message-box {
+  border-radius: 15px;
+  padding: 10px;
+  text-align: left;
+}
+
+.outgoing {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.outgoing-text {
+  background-color: #007AFF;
+  color: white;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.incoming {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.incoming-text {
+  background-color: #d8d8d8;
+  color: black;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.outgoing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.delivered {
+  font-size: 12px;
+}
+
+#keyboard {
+  height: auto;
+}
