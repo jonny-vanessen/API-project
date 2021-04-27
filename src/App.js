@@ -4,9 +4,9 @@ import Conversation from './Conversation/Conversation'
 
 function App() {
   return (
-    <div className="App">
-      <Trump />
+    <div className="App flex-col align-center">
       <Conversation />
+      <Trump />
     </div>
   );
 }

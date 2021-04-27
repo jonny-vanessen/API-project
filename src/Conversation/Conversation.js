@@ -5,8 +5,8 @@ function Conversation(props) {
 
   return (
     <div className='body-container'>
-      <div>
-        <img src='../assets/kanye.jpg' alt='kanye' />
+      <div className='cartoon-contain'>
+        <img id='kanye-img' src='../assets/kanye.jpg' alt='kanye' />
       </div>
       <div className='message-container'>
         <div className='outgoing'>
@@ -22,8 +22,8 @@ function Conversation(props) {
         </div>
         <img id='keyboard' src='../assets/keyboard.jpeg' />
       </div>
-      <div>
-        <img src='../assets/trump.png' alt='trump' />
+      <div className='cartoon-contain'>
+        <img id='trump-img' src='../assets/trump.png' alt='trump' />
       </div>
     </div>
   );

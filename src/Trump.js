@@ -33,10 +33,18 @@ function Trump(props) {
       });
   }
 
+  let tempStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    width: '300px',
+    height: '20px',
+    marginTop: '20px'
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <h1>Header</h1>
-      <span>{quote}</span>
+    <div style={tempStyles}>
+      {/*<span>{quote}</span>*/}
       <button onClick={handleClick}>Speech</button>
     </div>
   );

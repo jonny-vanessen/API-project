@@ -12,19 +12,24 @@ body {
   font-family: 'SF Pro';
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: black;
+  overflow: hidden;
 }
 
 .body-container {
   display: flex;
   justify-content: space-evenly;
+  height: 600px;
+  background-color: #4fbad4;
 }
 
 .body-container img {
-  height: 500px;
+  height: 100%;
 }
 
 .message-container {
@@ -48,6 +53,7 @@ body {
 .outgoing {
   display: flex;
   justify-content: flex-end;
+  padding-right: 5px;
 }
 
 .outgoing-text {
@@ -61,6 +67,7 @@ body {
 .incoming {
   display: flex;
   justify-content: flex-start;
+  padding-left: 5px;
 }
 
 .incoming-text {
@@ -79,8 +86,24 @@ body {
 
 .delivered {
   font-size: 12px;
+  padding-right: 5px;
 }
 
 #keyboard {
   height: auto;
+}
+
+.cartoon-contain {
+  height: 100%;
+  max-width: 560px;
+}
+
+#kanye-img {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+#trump-img {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
