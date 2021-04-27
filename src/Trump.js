@@ -21,17 +21,7 @@ function Trump(props) {
   }, []);
 
   //talk and set text quote for use on page
-  function handleClick() {
-    axios
-      .get('http://tronalddump.io/random/quote')
-      .then((response) => {
-        setQuote(response.data.value);
-        msg.text = response.data.value;
-        msg.voice = voices[Math.floor(Math.random() * voices.length)];
-        console.log(msg.text, msg.voice)
-        window.speechSynthesis.speak(msg);
-      });
-  }
+
 
   let tempStyles = {
     display: 'flex',
@@ -45,7 +35,6 @@ function Trump(props) {
   return (
     <div style={tempStyles}>
       {/*<span>{quote}</span>*/}
-      <button onClick={handleClick}>Speech</button>
     </div>
   );
 }
