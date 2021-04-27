@@ -68,6 +68,7 @@ body {
   display: flex;
   justify-content: flex-start;
   padding-left: 5px;
+  margin-bottom: 5px;
 }
 
 .incoming-text {
@@ -90,7 +91,7 @@ body {
 }
 
 #keyboard {
-  height: auto;
+  height: 300px;
 }
 
 .cartoon-contain {
@@ -106,4 +107,13 @@ body {
 #trump-img {
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.sendBtn {
+  position: absolute;
+  bottom: 58px;
+  right: 3px;
+  z-index: 5;
+  width: 70px;
+  height: 34px;
 }
