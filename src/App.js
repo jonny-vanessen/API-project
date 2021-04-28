@@ -1,8 +1,7 @@
 import './App.css';
 import Trump from './Trump';
 import Conversation from './Conversation/Conversation';
-// import STT from './Conversation/STT';
-
+import Dictaphone from './Conversation/Dictaphone'
 function App() {
   return (
     <div className="App flex-col align-center">
@@ -18,7 +17,6 @@ function App() {
           <img id='trump-img' src='../assets/trump.png' alt='trump' />
         </div>
       </div>
-
     </div>
   );
 }

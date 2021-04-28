@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './Conversation.css';
-import Trump from '../Trump';
 import axios from 'axios';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+
 
 function Conversation(props) {
   let [voices, setVoices] = useState([]);
   let [convo, setConvo] = useState([]);
   let [isTrump, setIsTrump] = useState(true);
   let [typing, setTyping] = useState(false);
+  let [dictation, setDictation] = useState(false);
+  let [speakText, setSpeakText] = useState('')
+
+  // Speech To Text
+  let { transcript, resetTranscript } = useSpeechRecognition()
+  console.log(transcript)
+
+  function speechText() {
+    setDictation(true)
+
+  }
+
+
+
+  // return (
+  //   <div>
+  //     <button onClick={SpeechRecognition.startListening}>Start</button>
+  //     <button onClick={SpeechRecognition.stopListening}>Stop</button>
+  //     <button onClick={resetTranscript}>Reset</button>
+  //     <p style={{ color: 'white', fontSize: '2rem' }}>{transcript}</p>
+  //   </div>
+  // )
 
 
   //init tts
@@ -24,28 +47,13 @@ function Conversation(props) {
     };
   }, []);
 
-  function trumpQuotes(message) {
-    return (
-      <div className='outgoing'>
-        <div className='outgoing-container'>
-          <span className='outgoing-text message-box'>{message}</span>
-          <span className='delivered'>Delivered</span>
-        </div>
-      </div>
-    )
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    return null
   }
 
-  function kanyeQuotes(message) {
-    return (
-      <div className='incoming'>
-        <div className='incoming-container'>
-          <span className='incoming-text message-box'>{message} </span>
-        </div>
-      </div>
-    )
-  }
 
   async function handleClick() {
+    setDictation(false)
     let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
       'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
     let name = names[Math.floor(Math.random() * names.length)];
@@ -89,6 +97,27 @@ function Conversation(props) {
     }, 2000)
   }
 
+  function trumpQuotes(message) {
+    return (
+      <div className='outgoing'>
+        <div className='outgoing-container'>
+          <span className='outgoing-text message-box'>{!dictation && message}{dictation && { transcript }}</span>
+          <span className='delivered'>Delivered</span>
+        </div>
+      </div>
+    )
+  }
+
+  function kanyeQuotes(message) {
+    return (
+      <div className='incoming'>
+        <div className='incoming-container'>
+          <span className='incoming-text message-box'>{message} </span>
+        </div>
+      </div>
+    )
+  }
+
 
   return (
     <div className='screenWrap'>
@@ -100,6 +129,8 @@ function Conversation(props) {
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
+      <button onClick={SpeechRecognition.startListening}>Start</button>
+      <button onClick={SpeechRecognition.stopListening}>Stop</button>
     </div>
   );
 }
