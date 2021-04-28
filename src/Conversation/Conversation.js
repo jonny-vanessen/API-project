@@ -6,8 +6,8 @@ import axios from 'axios';
 function Conversation(props) {
   let [voices, setVoices] = useState([]);
   let [convo, setConvo] = useState([]);
-  let [isTrump, setIsTrump] = useState(true)
-  let [typing, setTyping] = useState(false)
+  let [isTrump, setIsTrump] = useState(true);
+  let [typing, setTyping] = useState(false);
 
 
   //init tts
@@ -46,19 +46,36 @@ function Conversation(props) {
   }
 
   async function handleClick() {
-    const response = await axios.get('http://tronalddump.io/random/quote')
-    msg.text = 'test';
-    msg.voice = voices[Math.floor(Math.random() * voices.length)];
-    setConvo([...convo, trumpQuotes(response.data.value)]);
+    let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
+                 'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
+    let name = names[Math.floor(Math.random() * names.length)];
+    const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
+    console.log(response.data.message)
+    let tQuote = response.data.message;
+
+    if (tQuote.includes('http')) {
+      tQuote = tQuote.split(/(\s+)/);
+
+      for (let i = 0; i < tQuote.length; i++) {
+        if (tQuote[i].substring(0, 4) === "http" || tQuote[i].substring(0, 5) === "https") {
+          tQuote.splice(i, 1);
+        }
+      }
+      tQuote.join(" ");
+    }
+
+    msg.text = tQuote;
+    msg.voice = voices[0];
+    setConvo([...convo, trumpQuotes(tQuote)]);
     window.speechSynthesis.speak(msg);
     setIsTrump(false);
-    setTyping(true)
+    setTyping(true);
     setTimeout(async () => {
-      const response = await axios.get('https://api.kanye.rest/')
-      msg.text = 'test';
-      msg.voice = voices[Math.floor(Math.random() * voices.length)];
+      const response = await axios.get('https://api.kanye.rest/');
+      msg.text = response.data.quote;
+      msg.voice = voices[1];
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
-      console.log('was this 2 seconds?')
+      console.log('was this 2 seconds?');
       window.speechSynthesis.speak(msg);
       setTyping(false)
     }, 2000)
@@ -76,7 +93,3 @@ function Conversation(props) {
 }
 
 export default Conversation;
-
-
-
-
