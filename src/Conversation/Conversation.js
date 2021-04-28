@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Conversation.css';
 import Trump from '../Trump';
-import axios from 'axios'
-
-let isTrump = true;
+import axios from 'axios';
 
 function Conversation(props) {
-  let [trumpQuote, setTrumpQuote] = useState('');
-  let [kanyeQuote, setKanyeQuote] = useState('');
   let [voices, setVoices] = useState([]);
-  let [loading, setLoading] = useState(true);
   let [convo, setConvo] = useState([]);
+  let [isTrump, setIsTrump] = useState(true);
+  let [typing, setTyping] = useState(false);
 
 
   //init tts
@@ -25,8 +22,6 @@ function Conversation(props) {
         return voice.lang.includes('en')
       }))
     };
-
-    props.log('from a child')
   }, []);
 
   function trumpQuotes(message) {
@@ -50,44 +45,57 @@ function Conversation(props) {
     )
   }
 
-  function handleClick() {
-    if (isTrump) {
-      axios
-        .get('http://tronalddump.io/random/quote')
-        .then((response) => {
-          setTrumpQuote(response.data.value);
-          msg.text = 'test123';
-          msg.voice = voices[Math.floor(Math.random() * voices.length)];
-          setConvo([...convo, trumpQuotes(response.data.value)]);
-          window.speechSynthesis.speak(msg);
-        });
-      isTrump = false;
-    } else {
-      axios
-        .get('https://api.kanye.rest/')
-        .then((response) => {
-          setKanyeQuote(response.data.quote);
-          msg.text = 'test456';
-          msg.voice = voices[Math.floor(Math.random() * voices.length)];
+  async function handleClick() {
+    let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
+      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
+    let name = names[Math.floor(Math.random() * names.length)];
+    const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
+    let tQuote = response.data.message;
 
-          setConvo([...convo, kanyeQuotes(response.data.quote)]);
-          window.speechSynthesis.speak(msg);
-        });
-      isTrump = true;
+    if (tQuote.includes('http')) {
+      tQuote = tQuote.split(/(\s+)/);
+
+      for (let i = 0; i < tQuote.length; i++) {
+        if (tQuote[i].substring(0, 4) === "http" || tQuote[i].substring(0, 5) === "https") {
+          tQuote.splice(i, 1);
+        }
+      }
+      tQuote.join(" ");
     }
+
+    let scrollDiv = document.getElementById('msg-scroll');
+
+    msg.text = 'test';
+    // msg.text = tQuote;
+    msg.voice = voices[0];
+    setConvo([...convo, trumpQuotes(tQuote)]);
+    window.speechSynthesis.speak(msg);
+    setIsTrump(false);
+    setTyping(true);
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    setTimeout(async () => {
+      const response = await axios.get('https://api.kanye.rest/');
+      // msg.text = response.data.quote;
+      msg.text = 'test';
+      msg.voice = voices[1];
+      setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
+      console.log('was this 2 seconds?');
+      window.speechSynthesis.speak(msg);
+      setTyping(false);
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    }, 2000)
   }
 
+
   return (
-    <div style={{position: 'relative'}}>
-      {convo}
-      <img id='keyboard' src='../assets/keyboard.jpeg' />
+    <div className='screenWrap'>
+      <div id='msg-scroll' className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
+        {convo}
+        {typing && <img id='dots' src='../assets/tenor.gif' />}
+      </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
     </div>
   );
 }
 
 export default Conversation;
-
-
-
-

@@ -1,14 +1,15 @@
 @font-face {
-  font-family: "SF Pro";
-  src: url("SFPro-Regular.woff2") format("woff2"),
-    url("SFPro-Regular.woff") format("woff");
+  font-family: 'SF Pro';
+  src: url('SFPro-Regular.woff2') format('woff2'),
+    url('SFPro-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+
 body {
-  font-family: "SF Pro";
+  font-family: 'SF Pro';
   margin: 0;
   padding: 0;
   width: 100vw;
@@ -16,7 +17,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: white;
   overflow: hidden;
 }
 
@@ -31,16 +32,24 @@ body {
   height: 100%;
 }
 
-.message-container {
+.phone-container {
   border-radius: 30px;
   background-color: white;
-  height: 600px;
+  height: 589px;
   width: 300px;
-  border: 1px solid black;
+  border: 5px groove #5a5a5a;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   overflow: hidden;
+}
+
+.message-container {
+  height: 329px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 5px;
 }
 
 .message-box {
@@ -56,7 +65,7 @@ body {
 }
 
 .outgoing-text {
-  background-color: #007aff;
+  background-color: #007AFF;
   color: white;
   max-width: 200px;
   display: flex;
@@ -90,7 +99,10 @@ body {
 }
 
 #keyboard {
-  height: 300px;
+  height: 260px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  top: 332px;
 }
 
 .cartoon-contain {
@@ -110,11 +122,28 @@ body {
 
 .sendBtn {
   position: absolute;
-  bottom: 58px;
+  background-color: #007AFF;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  bottom: -214px;
   right: 3px;
   z-index: 5;
+  width: 68px;
+  height: 31px;
+  cursor: pointer;
+}
+
+#dots {
+  height: 40px;
   width: 70px;
-  height: 34px;
+  margin-left: 5px;
+}
+
+.screenWrap {
+  position: relative;
+  height: 329px;
+  overflow: unset;
 }
 
 .gif {
