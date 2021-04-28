@@ -14,11 +14,17 @@ function Conversation(props) {
 
   // Speech To Text
   let { transcript, resetTranscript } = useSpeechRecognition()
-  console.log(transcript)
 
-  function speechText() {
+  function beginListening() {
     setDictation(true)
+    SpeechRecognition.startListening()
+  }
 
+  async function doneListening() {
+    console.log({ transcript })
+    SpeechRecognition.stopListening()
+    setSpeakText({ transcript })
+    setConvo([...convo, trumpQuotes(speakText)])
   }
 
 
@@ -90,7 +96,6 @@ function Conversation(props) {
       msg.text = 'test';
       msg.voice = voices[1];
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
-      console.log('was this 2 seconds?');
       window.speechSynthesis.speak(msg);
       setTyping(false);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
@@ -101,7 +106,7 @@ function Conversation(props) {
     return (
       <div className='outgoing'>
         <div className='outgoing-container'>
-          <span className='outgoing-text message-box'>{!dictation && message}{dictation && { transcript }}</span>
+          <span className='outgoing-text message-box'>{message}</span>
           <span className='delivered'>Delivered</span>
         </div>
       </div>
@@ -131,8 +136,8 @@ function Conversation(props) {
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
+      <button onClick={beginListening}>Start</button>
+      <button onClick={doneListening}>Stop</button>
     </div>
   );
 }
