@@ -1,6 +1,7 @@
 import './App.css';
-import Trump from './Trump'
-import Conversation from './Conversation/Conversation'
+import Trump from './Trump';
+import Conversation from './Conversation/Conversation';
+import STT from './Conversation/STT';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <img id='trump-img' src='../assets/trump.png' alt='trump' />
         </div>
       </div>
+      <STT />
     </div>
   );
 }
