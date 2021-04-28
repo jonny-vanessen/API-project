@@ -90,6 +90,7 @@ function Conversation(props) {
   return (
     <div className='screenWrap'>
       <div className='bannerWrap'>
+        <div className='contactName'>Kanye</div>
         <img src='../assets/textBanner.png' alt='kanye contact' />
       </div>
       <div id='msg-scroll' className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
