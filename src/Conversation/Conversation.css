@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'SF Pro';
   src: url('SFPro-Regular.woff2') format('woff2'),
-    url('SFPro-Regular.woff') format('woff');
+  url('SFPro-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -50,6 +50,10 @@ body {
   flex-direction: column;
   overflow-y: auto;
   padding: 5px;
+}
+
+.message-container > :first-child {
+  margin-top: auto !important;
 }
 
 .message-box {
