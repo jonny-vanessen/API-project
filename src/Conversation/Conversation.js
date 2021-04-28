@@ -47,7 +47,7 @@ function Conversation(props) {
 
   async function handleClick() {
     let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
-                 'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
+      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
     let name = names[Math.floor(Math.random() * names.length)];
     const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
     console.log(response.data.message)
@@ -64,7 +64,8 @@ function Conversation(props) {
       tQuote.join(" ");
     }
 
-    msg.text = tQuote;
+    msg.text = 'test';
+    // msg.text = tQuote;
     msg.voice = voices[0];
     setConvo([...convo, trumpQuotes(tQuote)]);
     window.speechSynthesis.speak(msg);
@@ -72,7 +73,8 @@ function Conversation(props) {
     setTyping(true);
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
-      msg.text = response.data.quote;
+      // msg.text = response.data.quote;
+      msg.text = 'test';
       msg.voice = voices[1];
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       console.log('was this 2 seconds?');
@@ -83,10 +85,9 @@ function Conversation(props) {
 
 
   return (
-    <div style={{ position: 'relative', textAlign: 'left' }}>
+    <div className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
       {convo}
       {typing && <img id='dots' src='../assets/tenor.gif' />}
-      <img id='keyboard' src='../assets/keyboard.jpeg' />
       <button className='sendBtn' onClick={handleClick} >Send</button>
     </div>
   );

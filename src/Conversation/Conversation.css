@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: white;
   overflow: hidden;
 }
 
@@ -32,7 +32,7 @@ body {
   height: 100%;
 }
 
-.message-container {
+.phone-container {
   border-radius: 30px;
   background-color: white;
   height: 600px;
@@ -40,8 +40,16 @@ body {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   overflow: hidden;
+}
+
+.message-container {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: scroll;
 }
 
 .message-box {
@@ -92,6 +100,10 @@ body {
 
 #keyboard {
   height: 300px;
+  position: absolute;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  top: 332px;
 }
 
 .cartoon-contain {
@@ -111,14 +123,20 @@ body {
 
 .sendBtn {
   position: absolute;
-  bottom: 58px;
+  background-color: #007AFF;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  bottom: -246px;
   right: 3px;
   z-index: 5;
   width: 70px;
-  height: 34px;
+  height: 35px;
+  cursor: pointer;
 }
 
 #dots {
   height: 40px;
+  width: 80px;
   margin-left: 5px;
 }
