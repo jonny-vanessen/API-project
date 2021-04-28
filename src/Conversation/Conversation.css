@@ -35,9 +35,9 @@ body {
 .phone-container {
   border-radius: 30px;
   background-color: white;
-  height: 600px;
+  height: 589px;
   width: 300px;
-  border: 1px solid black;
+  border: 5px groove #5a5a5a;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -45,7 +45,7 @@ body {
 }
 
 .message-container {
-  height: 300px;
+  height: 329px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -99,7 +99,7 @@ body {
 }
 
 #keyboard {
-  height: 300px;
+  height: 260px;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   top: 332px;
@@ -126,11 +126,11 @@ body {
   border-radius: 5px;
   border: none;
   color: white;
-  bottom: -246px;
+  bottom: -214px;
   right: 3px;
   z-index: 5;
-  width: 70px;
-  height: 35px;
+  width: 68px;
+  height: 31px;
   cursor: pointer;
 }
 
@@ -142,6 +142,6 @@ body {
 
 .screenWrap {
   position: relative;
-  height: 300px;
+  height: 329px;
   overflow: unset;
 }

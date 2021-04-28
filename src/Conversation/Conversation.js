@@ -50,7 +50,6 @@ function Conversation(props) {
       'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
     let name = names[Math.floor(Math.random() * names.length)];
     const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
-    console.log(response.data.message)
     let tQuote = response.data.message;
 
     if (tQuote.includes('http')) {
@@ -64,7 +63,7 @@ function Conversation(props) {
       tQuote.join(" ");
     }
 
-    let scrollDiv = document.getElementById('msg-scroll')
+    let scrollDiv = document.getElementById('msg-scroll');
 
     msg.text = 'test';
     // msg.text = tQuote;
@@ -82,7 +81,7 @@ function Conversation(props) {
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       console.log('was this 2 seconds?');
       window.speechSynthesis.speak(msg);
-      setTyping(false)
+      setTyping(false);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 2000)
   }
