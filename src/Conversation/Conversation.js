@@ -20,11 +20,10 @@ function Conversation(props) {
     SpeechRecognition.startListening()
   }
 
-  async function doneListening() {
-    console.log({ transcript })
+  function doneListening() {
     SpeechRecognition.stopListening()
-    setSpeakText({ transcript })
-    setConvo([...convo, trumpQuotes(speakText)])
+    console.log(transcript)
+    setConvo([...convo, trumpQuotes(transcript)])
   }
 
 
@@ -59,9 +58,9 @@ function Conversation(props) {
 
 
   async function handleClick() {
-    setDictation(false)
+    // setDictation(false)
     let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
-      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
+      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
     let name = names[Math.floor(Math.random() * names.length)];
     const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
     let tQuote = response.data.message;
@@ -79,9 +78,11 @@ function Conversation(props) {
 
     let scrollDiv = document.getElementById('msg-scroll');
 
-    msg.text = 'test';
-    // msg.text = tQuote;
-    msg.voice = voices[0];
+    // msg.text = 'test';
+    msg.text = tQuote;
+    msg.voice = voices[3];
+    msg.pitch = 1.5;
+    // msg.rate = 1
     setConvo([...convo, trumpQuotes(tQuote)]);
     window.speechSynthesis.speak(msg);
     setIsTrump(false);
@@ -92,8 +93,8 @@ function Conversation(props) {
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
-      // msg.text = response.data.quote;
-      msg.text = 'test';
+      msg.text = response.data.quote;
+      // msg.text = 'test';
       msg.voice = voices[1];
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       window.speechSynthesis.speak(msg);
