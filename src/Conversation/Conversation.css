@@ -48,8 +48,8 @@ body {
   height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  overflow-y: scroll;
+  overflow-y: auto;
+  padding: 5px;
 }
 
 .message-box {
@@ -100,7 +100,6 @@ body {
 
 #keyboard {
   height: 300px;
-  position: absolute;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   top: 332px;
@@ -137,6 +136,12 @@ body {
 
 #dots {
   height: 40px;
-  width: 80px;
+  width: 70px;
   margin-left: 5px;
+}
+
+.screenWrap {
+  position: relative;
+  height: 300px;
+  overflow: unset;
 }

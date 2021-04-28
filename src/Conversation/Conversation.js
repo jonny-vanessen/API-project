@@ -64,6 +64,8 @@ function Conversation(props) {
       tQuote.join(" ");
     }
 
+    let scrollDiv = document.getElementById('msg-scroll')
+
     msg.text = 'test';
     // msg.text = tQuote;
     msg.voice = voices[0];
@@ -71,6 +73,7 @@ function Conversation(props) {
     window.speechSynthesis.speak(msg);
     setIsTrump(false);
     setTyping(true);
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
       // msg.text = response.data.quote;
@@ -80,14 +83,17 @@ function Conversation(props) {
       console.log('was this 2 seconds?');
       window.speechSynthesis.speak(msg);
       setTyping(false)
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 2000)
   }
 
 
   return (
-    <div className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
-      {convo}
-      {typing && <img id='dots' src='../assets/tenor.gif' />}
+    <div className='screenWrap'>
+      <div id='msg-scroll' className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
+        {convo}
+        {typing && <img id='dots' src='../assets/tenor.gif' />}
+      </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
     </div>
   );
