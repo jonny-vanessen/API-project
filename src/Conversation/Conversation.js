@@ -71,7 +71,10 @@ function Conversation(props) {
     setConvo([...convo, trumpQuotes(tQuote)]);
     window.speechSynthesis.speak(msg);
     setIsTrump(false);
-    setTyping(true);
+    setTimeout(() => {
+      setTyping(true);
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    }, 1000)
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
