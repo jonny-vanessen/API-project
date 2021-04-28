@@ -81,8 +81,8 @@ function Conversation(props) {
     // msg.text = 'test';
     msg.text = tQuote;
     msg.voice = voices[3];
-    msg.pitch = 1.5;
-    // msg.rate = 1
+    msg.rate = 0.9;
+    msg.pitch = 0.9;
     setConvo([...convo, trumpQuotes(tQuote)]);
     window.speechSynthesis.speak(msg);
     setIsTrump(false);
