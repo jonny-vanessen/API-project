@@ -89,6 +89,9 @@ function Conversation(props) {
 
   return (
     <div className='screenWrap'>
+      <div className='bannerWrap'>
+        <img src='../assets/textBanner.png' alt='kanye contact' />
+      </div>
       <div id='msg-scroll' className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
         {convo}
         {typing && <img id='dots' src='../assets/tenor.gif' />}

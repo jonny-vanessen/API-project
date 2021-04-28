@@ -158,3 +158,21 @@ body {
   z-index: 1;
   overflow: hidden;
 }
+
+.bannerWrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: -59px;
+  height: 147px;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.bannerWrap img {
+  position: relative;
+  top: -1px;
+  left: -7px;
+  width: 317px;
+  height: 250px;
+}
