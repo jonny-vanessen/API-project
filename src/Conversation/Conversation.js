@@ -11,6 +11,8 @@ function Conversation(props) {
   let [isTrump, setIsTrump] = useState(true);
   let [typing, setTyping] = useState(false);
   let [isSpeaking, setIsSpeaking] = useState(false);
+  let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
+
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
   // Speech To Text
@@ -37,16 +39,23 @@ function Conversation(props) {
 
 
 
+
   function beginListening() {
+    setIsSpeakingStyle({
+      backgroundColor: 'red',
+    })
     setIsSpeaking(true)
     SpeechRecognition.startListening()
   }
 
   function doneListening() {
     setIsSpeaking(false)
+    setIsSpeakingStyle({
+      backgroundColor: '#007AFF',
+    })
     SpeechRecognition.stopListening()
     console.log(transcript)
-    setConvo([...convo, trumpQuotes(transcript)])
+    setConvo([...convo, trumpQuotes(transcript.charAt(0).toUpperCase() + transcript.slice(1))])
     // incoming.play()
     setIsTrump(false);
     setTimeout(() => {
@@ -126,7 +135,7 @@ function Conversation(props) {
     setConvo([...convo, trumpQuotes(tQuote)]);
     let res = await axios.get(`http://localhost:5000/voice/donald-trump/${tQuote}`);
     console.log(res);
-    let {url} = res.data;
+    let { url } = res.data;
     console.log(url);
     new Audio('http://localhost:5000/test.webm').play();
 
@@ -183,7 +192,7 @@ function Conversation(props) {
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
-      <button className='textSpeechBtn'><img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} /></button>
+      <button style={isSpeakingStyle} className='textSpeechBtn'><img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} /></button>
     </div>
   );
 }
