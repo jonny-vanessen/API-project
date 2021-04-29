@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Dropdown.css';
 
 function Dropdown(props) {
   let [speaker, setSpeaker] = useState('')
