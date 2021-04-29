@@ -18,8 +18,16 @@ function Conversation(props) {
 
   let { transcript, resetTranscript } = useSpeechRecognition()
 
-  let today = new Date();
-  let time = today.getHours() + ":" + today.getMinutes()
+  function printTime() {
+    let today = new Date();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    if (hours > 12) hours = hours - 12;
+    if (minutes < 10) minutes = `0${minutes}`
+    return (`${hours}:${minutes}`)
+  }
+
+
 
 
 
@@ -160,7 +168,7 @@ function Conversation(props) {
   return (
     <div className='screenWrap'>
       <div className='bannerWrap'>
-        <div className='clock'>{time}</div>
+        <div className='clock'>{printTime()}</div>
         <div className='contactName'>Kanye</div>
         <img src='../assets/textBanner.png' alt='kanye contact' />
       </div>
