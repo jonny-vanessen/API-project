@@ -12,6 +12,7 @@ function Conversation(props) {
   let [typing, setTyping] = useState(false);
   let [isSpeaking, setIsSpeaking] = useState(false);
   let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
+  let [canClickSend, setCanClickSend] = useState(true)
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
@@ -92,6 +93,7 @@ function Conversation(props) {
 
   async function handleClick() {
     // setDictation(false)
+    setCanClickSend(false)
     let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
       'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
     let name = names[Math.floor(Math.random() * names.length)];
@@ -218,6 +220,7 @@ function Conversation(props) {
         //   scrollDiv.scrollTop = scrollDiv.scrollHeight;
         //}, 2000)
       });
+    setCanClickSend(true)
   }
 
   function trumpQuotes(message) {
@@ -253,7 +256,7 @@ function Conversation(props) {
         {convo}
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
-      <button className='sendBtn' onClick={handleClick} >Send</button>
+      <button className='sendBtn' onClick={canClickSend && handleClick} >Send</button>
       <button style={isSpeakingStyle} className='textSpeechBtn'>
         <img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} />
       </button>
