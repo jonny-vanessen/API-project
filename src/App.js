@@ -1,7 +1,5 @@
 import './App.css';
-import Trump from './Trump';
 import Conversation from './Conversation/Conversation';
-import Dictaphone from './Conversation/Dictaphone';
 
 function App() {
   return (

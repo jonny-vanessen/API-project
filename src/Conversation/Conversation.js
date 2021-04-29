@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Conversation.css';
 import axios from 'axios';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+// const incoming = new Audio('./assets/iPhone-receive.mp3')
 
 
 function Conversation(props) {
@@ -9,21 +10,52 @@ function Conversation(props) {
   let [convo, setConvo] = useState([]);
   let [isTrump, setIsTrump] = useState(true);
   let [typing, setTyping] = useState(false);
-  let [dictation, setDictation] = useState(false);
-  let [speakText, setSpeakText] = useState('')
+  let [isSpeaking, setIsSpeaking] = useState(false);
+  // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
   // Speech To Text
+  let scrollDiv = document.getElementById('msg-scroll');
+
   let { transcript, resetTranscript } = useSpeechRecognition()
 
+  let today = new Date();
+  let time = today.getHours() + ":" + today.getMinutes()
+
+
+
+  // setInterval(() => {
+  //   setTime(today.getHours() + ":" + today.getMinutes())
+  // }, 60000)
+
+
+
   function beginListening() {
-    setDictation(true)
+    setIsSpeaking(true)
     SpeechRecognition.startListening()
   }
 
   function doneListening() {
+    setIsSpeaking(false)
     SpeechRecognition.stopListening()
     console.log(transcript)
     setConvo([...convo, trumpQuotes(transcript)])
+    // incoming.play()
+    setIsTrump(false);
+    setTimeout(() => {
+      setTyping(true);
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    }, 1000)
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    setTimeout(async () => {
+      const response = await axios.get('https://api.kanye.rest/');
+      msg.text = response.data.quote;
+      // msg.text = 'test';
+      msg.voice = voices[1];
+      setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
+      window.speechSynthesis.speak(msg);
+      setTyping(false);
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    }, 2000)
   }
 
 
@@ -76,7 +108,7 @@ function Conversation(props) {
       tQuote.join(" ");
     }
 
-    let scrollDiv = document.getElementById('msg-scroll');
+
 
     // msg.text = 'test';
     msg.text = tQuote;
@@ -134,7 +166,7 @@ function Conversation(props) {
   return (
     <div className='screenWrap'>
       <div className='bannerWrap'>
-        <div className='clock'>4:12</div>
+        <div className='clock'>{time}</div>
         <div className='contactName'>Kanye</div>
         <img src='../assets/textBanner.png' alt='kanye contact' />
       </div>
@@ -143,8 +175,7 @@ function Conversation(props) {
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
-      <button onClick={beginListening}>Start</button>
-      <button onClick={doneListening}>Stop</button>
+      <button className='textSpeechBtn'><img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} /></button>
     </div>
   );
 }

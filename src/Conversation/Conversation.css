@@ -132,9 +132,10 @@ body {
 
 .sendBtn {
   position: absolute;
+  font-weight: bold;
   background-color: #007AFF;
-  border-radius: 5px;
   border: none;
+  border-radius: 5px;
   color: white;
   bottom: -214px;
   right: 3px;
@@ -142,6 +143,25 @@ body {
   width: 68px;
   height: 31px;
   cursor: pointer;
+}
+
+.textSpeechBtn {
+  position: absolute;
+  background-color: #007AFF;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  bottom: -252px;
+  right: 10px;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.textSpeechBtn img {
+  height: 18px;
+  width: 18px;
 }
 
 #dots {
