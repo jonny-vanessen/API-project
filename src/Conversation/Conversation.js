@@ -124,7 +124,13 @@ function Conversation(props) {
     msg.rate = 0.9;
     msg.pitch = 0.9;
     setConvo([...convo, trumpQuotes(tQuote)]);
-    window.speechSynthesis.speak(msg);
+    let res = await axios.get(`http://localhost:5000/voice/donald-trump/${tQuote}`);
+    console.log(res);
+    let {url} = res.data;
+    console.log(url);
+    new Audio('http://localhost:5000/test.webm').play();
+
+    //window.speechSynthesis.speak(msg);
     setIsTrump(false);
     setTimeout(() => {
       setTyping(true);
@@ -137,7 +143,7 @@ function Conversation(props) {
       // msg.text = 'test';
       msg.voice = voices[1];
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
-      window.speechSynthesis.speak(msg);
+      //window.speechSynthesis.speak(msg);
       setTyping(false);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 2000)
