@@ -1,7 +1,8 @@
 import './App.css';
 import Trump from './Trump';
 import Conversation from './Conversation/Conversation';
-import Dictaphone from './Conversation/Dictaphone'
+import Dictaphone from './Conversation/Dictaphone';
+
 function App() {
   return (
     <div className="App flex-col align-center">
