@@ -11,16 +11,18 @@ function Conversation(props) {
   let [typing, setTyping] = useState(false);
   let [dictation, setDictation] = useState(false);
   let [speakText, setSpeakText] = useState('')
+  let [isSpeaking, setIsSpeaking] = useState(false)
 
   // Speech To Text
   let { transcript, resetTranscript } = useSpeechRecognition()
 
   function beginListening() {
-    setDictation(true)
+    setIsSpeaking(true)
     SpeechRecognition.startListening()
   }
 
   function doneListening() {
+    setIsSpeaking(false)
     SpeechRecognition.stopListening()
     console.log(transcript)
     setConvo([...convo, trumpQuotes(transcript)])
@@ -137,8 +139,7 @@ function Conversation(props) {
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
       <button className='sendBtn' onClick={handleClick} >Send</button>
-      <button onClick={beginListening}>Start</button>
-      <button onClick={doneListening}>Stop</button>
+      <button className='textSpeechBtn'><img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} /></button>
     </div>
   );
 }
