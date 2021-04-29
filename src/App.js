@@ -11,7 +11,7 @@ function App() {
         </div>
         <div className='phone-container'>
           <Conversation />
-          <img id='keyboard' src='../assets/keyboard.jpeg' />
+          <img id='keyboard' src='../assets/keyboard.jpeg' alt='keyboard'/>
         </div>
         <div className='cartoon-contain'>
           <img id='trump-img' src='../assets/trump.png' alt='trump' />
@@ -23,3 +23,20 @@ function App() {
 }
 
 export default App;
+
+
+    // const sound = new Howl.Howl({
+    //   src: [data],
+    //   format: 'wav',
+    //   // NB: Attempting to get this working on iPhone Safari
+    //   // https://github.com/goldfire/howler.js/issues/1093
+    //   // Other issues cite needing to cache a single player
+    //   // across all user interaction events.
+    //   html5: true,
+    // });
+    //
+    // this.setState({
+    //   howl: sound,
+    // });
+    //
+    // sound.play();
