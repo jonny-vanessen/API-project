@@ -1,5 +1,6 @@
 import './App.css';
 import Conversation from './Conversation/Conversation';
+import Dropdown from './Conversation/Dropdown'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <img id='trump-img' src='../assets/trump.png' alt='trump' />
         </div>
       </div>
+      <Dropdown />
     </div>
   );
 }
