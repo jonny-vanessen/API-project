@@ -21,3 +21,20 @@ function App() {
 }
 
 export default App;
+
+
+    // const sound = new Howl.Howl({
+    //   src: [data],
+    //   format: 'wav',
+    //   // NB: Attempting to get this working on iPhone Safari
+    //   // https://github.com/goldfire/howler.js/issues/1093
+    //   // Other issues cite needing to cache a single player
+    //   // across all user interaction events.
+    //   html5: true,
+    // });
+    //
+    // this.setState({
+    //   howl: sound,
+    // });
+    //
+    // sound.play();

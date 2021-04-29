@@ -67,7 +67,7 @@ function Conversation(props) {
       const response = await axios.get('https://api.kanye.rest/');
       msg.text = response.data.quote;
       // msg.text = 'test';
-      msg.voice = voices[1];
+      msg.voice = voices[0];
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       window.speechSynthesis.speak(msg);
       setTyping(false);
@@ -133,11 +133,39 @@ function Conversation(props) {
     msg.rate = 0.9;
     msg.pitch = 0.9;
     setConvo([...convo, trumpQuotes(tQuote)]);
-    let res = await axios.get(`http://localhost:5000/voice/donald-trump/${tQuote}`);
-    console.log(res);
-    let { url } = res.data;
-    console.log(url);
-    new Audio('http://localhost:5000/test.webm').play();
+    //let res = await axios.get(`http://localhost:5000/voice/donald-trump/${tQuote}`);
+    // console.log(res);
+    // let { url } = res.data;
+    // console.log(url);
+    // new Audio('http://localhost:5000/test.webm').play();
+
+    const url = 'https://mumble.stream/speak_spectrogram';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: tQuote,
+        speaker: 'donald-trump'
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        const data = `data:audio/wav;base64,${res.audio_base64}`;
+        //(window as any).audio_base64 = res.audio_base64;
+
+        // var image = new Image();
+        // image.src = `data:image/bmp;base64,${res.spectrogram.bytes_base64}`;
+        // console.log('image', image);
+
+        console.log(data)
+        let snd = new Audio(data);
+        snd.play();
+
+      });
 
     //window.speechSynthesis.speak(msg);
     setIsTrump(false);
