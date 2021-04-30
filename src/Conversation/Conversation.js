@@ -5,7 +5,6 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import celebrityQuotes from '../celebrityQuotes'
 // const incoming = new Audio('./assets/iPhone-receive.mp3')
 
-
 function Conversation(props) {
 
   console.log('component refreshes');
@@ -40,15 +39,15 @@ function Conversation(props) {
   }
 
 
-  let { transcript, resetTranscript } = useSpeechRecognition()
+  let { transcript, resetTranscript } = useSpeechRecognition();
 
   function printTime() {
     let today = new Date();
     let hours = today.getHours();
     let minutes = today.getMinutes();
     if (hours > 12) hours = hours - 12;
-    if (minutes < 10) minutes = `0${minutes}`
-    return (`${hours}:${minutes}`)
+    if (minutes < 10) minutes = `0${minutes}`;
+    return `${hours}:${minutes}`;
   }
 
 
@@ -58,21 +57,24 @@ function Conversation(props) {
   //handle Listen Mic
   function beginListening() {
     setIsSpeakingStyle({
-      backgroundColor: 'red',
-    })
-    setIsSpeaking(true)
-    SpeechRecognition.startListening()
+      backgroundColor: "red",
+    });
+    setIsSpeaking(true);
+    SpeechRecognition.startListening();
   }
 
   //handle End Mic Listen
   function doneListening() {
-    setIsSpeaking(false)
+    setIsSpeaking(false);
     setIsSpeakingStyle({
-      backgroundColor: '#007AFF',
-    })
-    SpeechRecognition.stopListening()
-    console.log(transcript)
-    setConvo([...convo, trumpQuotes(transcript.charAt(0).toUpperCase() + transcript.slice(1))])
+      backgroundColor: "#007AFF",
+    });
+    SpeechRecognition.stopListening();
+    console.log(transcript);
+    setConvo([
+      ...convo,
+      trumpQuotes(transcript.charAt(0).toUpperCase() + transcript.slice(1)),
+    ]);
     // incoming.play()
     //setIsTrump(false);
     setTimeout(() => {
@@ -90,13 +92,12 @@ function Conversation(props) {
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       scrollDiv = document.querySelector('#msg-scroll');
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
-    }, 2000)
+    }, 2000);
   }
 
 
-
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return null
+    return null;
   }
 
   async function getQuotes() {
@@ -120,8 +121,9 @@ function Conversation(props) {
     }
 
 
-    let secondQuoteResponse = await axios.get('https://api.kanye.rest/');
-    let secondQuote = secondQuoteResponse.data.quote
+
+    let secondQuoteResponse = await axios.get("https://api.kanye.rest/");
+    let secondQuote = secondQuoteResponse.data.quote;
 
     return { firstQuote: firstQuote, secondQuote: secondQuote };
   }
@@ -131,9 +133,9 @@ function Conversation(props) {
     const url = 'https://mumble.stream/speak_spectrogram';
     let speakerAudio = await axios.post(url, {
       text: quote,
-      speaker: speaker
-    })
-    return speakerAudio
+      speaker: speaker,
+    });
+    return speakerAudio;
   }
 
 
@@ -143,7 +145,7 @@ function Conversation(props) {
 
     //set wait time
     audio.onloadedmetadata = function () {
-      setAudioLength(audio.duration * 1000)
+      setAudioLength(audio.duration * 1000);
     };
 
     //play sound
@@ -213,12 +215,10 @@ function Conversation(props) {
     scrollDiv = document.querySelector('#msg-scroll');
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
-
     setTimeout(() => {
       receiveMessageAudio.play();
       setTyping(false);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
-
 
       setConvo(prevState => [...prevState, kanyeQuotes(secondQuote)]);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
@@ -232,43 +232,55 @@ function Conversation(props) {
     console.log(currentSpeaker)
   }
 
-
   function trumpQuotes(message) {
     return (
-      <div className='outgoing'>
-        <div className='outgoing-container'>
-          <span className='outgoing-text message-box'>{message}</span>
-          <span className='delivered'>Delivered</span>
+      <div className="outgoing">
+        <div className="outgoing-container">
+          <span className="outgoing-text message-box">{message}</span>
+          <span className="delivered">Delivered</span>
         </div>
       </div>
-    )
+    );
   }
 
   function kanyeQuotes(message) {
     return (
-      <div className='incoming'>
-        <div className='incoming-container'>
-          <span className='incoming-text message-box'>{message} </span>
+      <div className="incoming">
+        <div className="incoming-container">
+          <span className="incoming-text message-box">{message} </span>
         </div>
       </div>
-    )
+    );
   }
 
-
   return (
-    <div className='screenWrap'>
-      <div className='bannerWrap'>
-        <div className='clock'>{printTime()}</div>
-        <div className='contactName'>Kanye</div>
-        <img src='../assets/textBanner.png' alt='kanye contact' />
+    <div className="screenWrap">
+      <div className="bannerWrap">
+        <div className="clock">{printTime()}</div>
+        <div className="contactName">Kanye</div>
+        <img src="../assets/textBanner.png" alt="kanye contact" />
       </div>
-      <div id='msg-scroll' className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
+      <div
+        id="msg-scroll"
+        className="message-container"
+        style={{ position: "relative", textAlign: "left" }}
+      >
         {convo}
-        {typing && <img id='dots' src='../assets/tenor.gif' />}
+        {typing && <img id="dots" src="../assets/tenor.gif" />}
       </div>
-      <button className='sendBtn' disabled={!canClickSend} onClick={handleMessages}>Send</button>
-      <button style={isSpeakingStyle} className='textSpeechBtn'>
-        <img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} />
+      <button
+        className="sendBtn"
+        disabled={!canClickSend}
+        onClick={handleMessages}
+      >
+        Send
+      </button>
+      <button style={isSpeakingStyle} className="textSpeechBtn">
+        <img
+          src="./assets/microphone.png"
+          alt="microphone"
+          onClick={!isSpeaking ? beginListening : doneListening}
+        />
       </button>
       <select name="voices" id="voices" onChange={handleChange}>
         <option value="donald-trump">Donald Trump</option>
