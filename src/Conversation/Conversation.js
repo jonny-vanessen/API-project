@@ -131,7 +131,7 @@ function Conversation(props) {
 
   async function getAudio(quote, speaker) {
     console.log(speaker)
-    const url = 'https://mumble.stream/speak_spectrogram';
+    const url = 'http://iron-cors-anywhere.herokuapp.com/mumble.stream/speak_spectrogram';
     let speakerAudio = await axios.post(url, {
       text: quote,
       speaker: speaker,
@@ -192,7 +192,7 @@ function Conversation(props) {
         console.log('backspace: ', i);
         typingBackspace.play()
       } else {
-        if (i % 2 === 0 ) {
+        if (i % 2 === 0) {
           typingClick.play();
           console.log('click: ', i, randomType);
         }
