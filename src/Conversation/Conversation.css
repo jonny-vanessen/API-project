@@ -137,11 +137,11 @@ body {
   border: none;
   border-radius: 5px;
   color: white;
-  bottom: -214px;
-  right: 3px;
+  bottom: -212px;
+  right: 2px;
   z-index: 5;
-  width: 68px;
-  height: 31px;
+  width: 70px;
+  height: 29px;
   cursor: pointer;
 }
 
@@ -151,6 +151,10 @@ body {
   background-color: #cccccc;
   color: #666666;
   cursor: not-allowed;
+}
+
+.sendBtn:focus {
+  outline: none;
 }
 
 .textSpeechBtn {
@@ -244,4 +248,24 @@ body {
   font-weight: 600;
   transform: scaleY(0.9);
   color: #1f1f1f;
+}
+
+#voices {
+  position: absolute;
+  padding: 5px;
+  bottom: -251px;
+  left: 94px;
+  z-index: 7;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 3px 2px 0 #cccccc;
+  transform: scaleY(0.9);
+}
+
+#voices:hover {
+  cursor: pointer;
+}
+
+#voices:focus {
+  outline: none;
 }

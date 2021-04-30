@@ -1,25 +1,16 @@
 import "./App.css";
-import Trump from "./Trump";
-import Conversation from "./Conversation/Conversation";
-import LandingPage from "./Conversation/LandingPage";
+import Land from "./Conversation/Land";
 import React, { useEffect, useState } from "react";
-import Dictaphone from "./Conversation/Dictaphone";
+import {Switch, Link, Route} from 'react-router-dom'
+import Home from './Home';
 
 function App() {
   return (
     <div className="App flex-col align-center">
-      <div className='body-container'>
-        <div className='cartoon-contain'>
-          <img id='kanye-img' src='../assets/kanye.jpg' alt='kanye' />
-        </div>
-        <div className='phone-container'>
-          <Conversation />
-          <img id='keyboard' src='../assets/keyboard.jpeg' alt='keyboard' />
-        </div>
-        <div className='cartoon-contain'>
-          <img id='trump-img' src='../assets/trump.png' alt='trump' />
-        </div>
-      </div>
+      <Switch>
+        <Route exact path='/' component={Land}/>
+        <Route exact path='/home' component={Home} />
+      </Switch>
     </div>
   );
 }
