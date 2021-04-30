@@ -23,7 +23,6 @@ function Conversation(props) {
   let [name, setName] = useState('Hunter')
 
   let scrollDiv = document.querySelector('#msg-scroll');
-  console.log(scrollDiv);
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
@@ -77,11 +76,9 @@ function Conversation(props) {
     setTimeout(() => {
       setTyping(true);
       scrollDiv = document.querySelector('#msg-scroll');
-      console.log(scrollDiv);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 1000)
     scrollDiv = document.querySelector('#msg-scroll');
-    console.log(scrollDiv);
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
@@ -90,7 +87,6 @@ function Conversation(props) {
       setTyping(false);
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       scrollDiv = document.querySelector('#msg-scroll');
-      console.log(scrollDiv);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 2000)
   }
@@ -166,7 +162,6 @@ function Conversation(props) {
       setTyping(true);
     }, delay)
     scrollDiv = document.querySelector('#msg-scroll');
-    console.log(scrollDiv);
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
     //TODO: stop 'typing' animation
@@ -236,6 +231,7 @@ function Conversation(props) {
         <option value="arnold-schwarzenegger">Arnold Schwarzenegger</option>
         <option value="gilbert-gottfried">Gilbert Gottfried</option>
       </select>
+      <img id='keyboard' src='../assets/imgs/k1.jpeg' alt='keyboard' />
     </div>
   )
 }
