@@ -5,7 +5,7 @@
   /* width: 100vw; */
   height: 100vh;
   font-family: "Roboto", sans-serif;
-  font: bold;
+  font-weight: bold;
   color: red;
   font-size: 150px;
   text-shadow: 2px 2px 4px #000000;
@@ -22,7 +22,7 @@
 .titleLine2,
 .titleLine3 {
   /* border: 4px dashed blue; */
-  transition: all 1s;
+  transition: all 0.5s;
   /* ENDING POINT BELOW*/
   transform: translate(0, 0);
   margin: 0;
