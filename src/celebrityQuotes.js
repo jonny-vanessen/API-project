@@ -63,6 +63,18 @@ let celebrityQuotes = {
     `A lot of times in politics you have ${name()} look you in the eye and tell you what's not on their mind`,
     `There's no question about it, ${name()} got drunk. They got drunk and now they've got a hangover`,
   ],
+  drPhilMcgraw: [
+    "Its better to be healthy alone than sick with someone else.",
+    "You dont need a ropte to pinch a stangers butt.",
+    "You dont need a pack of wild horses to learn how to make a sandwich",
+    "Common sense needs to be more common.",
+    "Eighty percent of all questoins are statemnts in disguise",
+    "Stand up and walk out of your history",
+    "Nothing is funnier to me than lauging at myself.",
+    "No matter how flat you make a pancake, its still got two sides.",
+    "I didnt just come in on a load of turnips!",
+    "Im not a politician",
+  ],
 
 
 };
