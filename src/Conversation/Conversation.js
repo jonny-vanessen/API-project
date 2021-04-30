@@ -8,8 +8,7 @@ import celebrityQuotes from '../celebrityQuotes'
 
 function Conversation(props) {
 
-  console.log('test')
-  console.log(celebrityQuotes)
+  console.log('component refreshes');
 
   let [voices, setVoices] = useState([]);
   let [convo, setConvo] = useState([]);
@@ -20,13 +19,16 @@ function Conversation(props) {
   let [canClickSend, setCanClickSend] = useState(true);
   let [audioLength, setAudioLength] = useState(2000)
   let [currentSpeaker, setCurrentSpeaker] = useState('donald-trump')
-  let [name, setName] = useState('Hunter')
+  let [name, setName] = useState('Hunter');
+  let [kImg, setKImg] = useState(1);
+  let [randomType, setRandomType] = useState(Math.floor((Math.random() * 100) + 50));
+  let [firstReady, setFirstReady] = useState(false);
 
   let scrollDiv = document.querySelector('#msg-scroll');
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
-  // Speech To Text
+  let keyboardType;
 
 
   useEffect(() => {
@@ -150,11 +152,58 @@ function Conversation(props) {
   }
 
   async function handleMessages() {
+    setFirstReady(false)
     setCanClickSend(false)
+
+    // function typing() {
+    //   if (!firstReady) {
+    //     setTimeout(() => {
+    //       //setRandomType(Math.floor((Math.random() * 100) + 50));
+    //
+    //       typingClick.currentTime = 0;
+    //       //TODO: deleteClick.currentTime = 0
+    //       if (kImg > 27) {
+    //         //TODO: deleteClick.play()
+    //       } else {
+    //         if (kImg % 2 === 0 ) {
+    //           typingClick.play();
+    //           console.log('click: ', kImg, randomType);
+    //         }
+    //       }
+    //       kImg > 37 ? setKImg(1) : setKImg(++kImg);
+    //
+    //     }, 100)
+    //
+    //     typing();
+    //   }
+    // }
+    // typing();
+
+    keyboardType = setInterval(() => {
+
+      typingClick.currentTime = 0;
+      //TODO: deleteClick.currentTime = 0
+      if (kImg > 27) {
+        //TODO: deleteClick.play()
+      } else {
+        if (kImg % 2 === 0 ) {
+          typingClick.play();
+          console.log('click: ', kImg, randomType);
+        }
+      }
+      kImg > 37 ? setKImg(1) : setKImg(++kImg);
+    }, 100);
+
+
     const { firstQuote, secondQuote } = await getQuotes();
     const firstSpeakerAudio = await getAudio(firstQuote, currentSpeaker);
+
+    setFirstReady(true);
     playAudio(firstSpeakerAudio);
     setConvo([...convo, trumpQuotes(firstQuote)]);
+
+    clearInterval(keyboardType);
+    setKImg(1);
 
     const delay = audioLength > 3000 ? audioLength + 1000 : audioLength;
 
@@ -163,8 +212,6 @@ function Conversation(props) {
     }, delay)
     scrollDiv = document.querySelector('#msg-scroll');
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
-
-    //TODO: stop 'typing' animation
 
 
     setTimeout(() => {
@@ -231,7 +278,7 @@ function Conversation(props) {
         <option value="arnold-schwarzenegger">Arnold Schwarzenegger</option>
         <option value="gilbert-gottfried">Gilbert Gottfried</option>
       </select>
-      <img id='keyboard' src='../assets/imgs/k1.jpeg' alt='keyboard' />
+      <img id='keyboard' src={`../assets/imgs/k${kImg}.jpeg`} alt='keyboard' />
     </div>
   )
 }
