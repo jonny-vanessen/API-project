@@ -7,21 +7,17 @@ import Dictaphone from "./Conversation/Dictaphone";
 
 function App() {
   return (
-    <div>
-      {/*<LandingPage />*/}
-
-      <div className="App flex-col align-center">
-        <div className="body-container">
-          <div className="cartoon-contain">
-            <img id="kanye-img" src="../assets/kanye.jpg" alt="kanye" />
-          </div>
-          <div className="phone-container">
-            <Conversation />
-            <img id="keyboard" src="../assets/keyboard.jpeg" />
-          </div>
-          <div className="cartoon-contain">
-            <img id="trump-img" src="../assets/trump.png" alt="trump" />
-          </div>
+    <div className="App flex-col align-center">
+      <div className='body-container'>
+        <div className='cartoon-contain'>
+          <img id='kanye-img' src='../assets/kanye.jpg' alt='kanye' />
+        </div>
+        <div className='phone-container'>
+          <Conversation />
+          <img id='keyboard' src='../assets/keyboard.jpeg' alt='keyboard' />
+        </div>
+        <div className='cartoon-contain'>
+          <img id='trump-img' src='../assets/trump.png' alt='trump' />
         </div>
       </div>
     </div>

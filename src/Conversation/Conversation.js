@@ -14,6 +14,7 @@ function Conversation(props) {
   let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
   let [canClickSend, setCanClickSend] = useState(true);
   let [audioLength, setAudioLength] = useState(2000)
+  let [speaker, setSpeaker] = useState('')
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
@@ -99,7 +100,7 @@ function Conversation(props) {
     let secondQuoteResponse = await axios.get('https://api.kanye.rest/');
     let secondQuote = secondQuoteResponse.data.quote
 
-    return { firstQuote, secondQuote };
+    return { firstQuote: firstQuote, secondQuote: secondQuote };
   }
 
   async function getAudio(quote, speaker) {
@@ -138,7 +139,7 @@ function Conversation(props) {
 
     const delay = audioLength > 5000 ? audioLength + 500 : audioLength;
 
-    const secondSpeakerAudio = await getAudio(secondQuote, 'david-attenborough');
+    const secondSpeakerAudio = await getAudio(secondQuote, 'spongebob-squarepants');
     // scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
     //TODO: stop 'typing' animation
@@ -154,6 +155,11 @@ function Conversation(props) {
       // scrollDiv.scrollTop = scrollDiv.scrollHeight;
       setCanClickSend(true)
     }, delay)
+  }
+
+
+  const handleChange = (e) => {
+    setSpeaker(e.target.value)
   }
 
 
@@ -194,8 +200,14 @@ function Conversation(props) {
       <button style={isSpeakingStyle} className='textSpeechBtn'>
         <img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} />
       </button>
+      <select name="voices" id="voices" onChange={handleChange}>
+        <option value="donald-trump">Donald Trump</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+      </select>
     </div>
-  );
+  )
 }
 
 export default Conversation;
