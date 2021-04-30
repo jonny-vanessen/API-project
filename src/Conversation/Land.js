@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import LandingPage from "./LandingPage.css";
 
 function Land(props) {
@@ -19,10 +19,13 @@ function Land(props) {
       </div>
       <div className='instructions'>
         <div className='description'>
-          Lorem Ipsum: As of React Router 5.1, if you are using React 16 you should not need this prop because we forward the ref to the underlying a tag. Use a normal ref instead.
+          Have a funny text conversation with Kanye West.
         </div>
         <div className='description'>
-          When true, the trailing slash on a location’s pathname will be taken into consideration when determining if the location matches the current URL.
+          Select your speaker, and have personalized quotes genererated by things actually said by your selected speaker.
+        </div>
+        <div className='description'>
+          See what Kanye has to say in response.
         </div>
       </div>
       <Link to='/home'>
