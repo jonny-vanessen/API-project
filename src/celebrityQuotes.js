@@ -13,7 +13,7 @@ let celebrityQuotes = {
 
   arnoldSchwarzenegger: [
     `If ${name1} can see it and believe it, then ${name1} can achieve it.`,
-    `I was going to give a graduation speech in Arizona this weekend. But with my accent I was afraid ${name} would try to deport me.`,
+    `I was going to give a graduation speech in Arizona this weekend. But with my accent I was afraid ${name()} would try to deport me.`,
     `Its simple, if it jiggles, its fat.`,
     `Get to the Chopper, ${name()}!`,
     `${name()}, who is your daddy and what does he do?`,
