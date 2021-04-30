@@ -53,6 +53,7 @@ function Conversation(props) {
 
   let receiveMessageAudio = new Audio('../assets/iPhone-receive.mp3');
   let typingClick = new Audio('../assets/typingClick.mp3');
+  let typingBackspace = new Audio('../assets/typingBackspace.mp3');
 
   //handle Listen Mic
   function beginListening() {
@@ -181,20 +182,29 @@ function Conversation(props) {
     // }
     // typing();
 
+    let i = 1;
+
     keyboardType = setInterval(() => {
 
       typingClick.currentTime = 0;
-      //TODO: deleteClick.currentTime = 0
-      if (kImg > 27) {
-        //TODO: deleteClick.play()
+      typingBackspace.currentTime = 0
+      if (i > 27) {
+        console.log('backspace: ', i);
+        typingBackspace.play()
       } else {
-        if (kImg % 2 === 0 ) {
+        if (i % 2 === 0 ) {
           typingClick.play();
-          console.log('click: ', kImg, randomType);
+          console.log('click: ', i, randomType);
         }
       }
-      kImg > 37 ? setKImg(1) : setKImg(++kImg);
-    }, 100);
+
+      if (i > 37) {
+        i = 1
+      } else {
+        i++;
+      }
+      setKImg(i);
+    }, 150);
 
 
     const { firstQuote, secondQuote } = await getQuotes();
