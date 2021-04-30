@@ -1,15 +1,14 @@
 @font-face {
-  font-family: 'SF Pro';
-  src: url('SFPro-Regular.woff2') format('woff2'),
-    url('SFPro-Regular.woff') format('woff');
+  font-family: "SF Pro";
+  src: url("SFPro-Regular.woff2") format("woff2"),
+    url("SFPro-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-
 body {
-  font-family: 'SF Pro';
+  font-family: "SF Pro";
   margin: 0;
   padding: 0;
   width: 100vw;
@@ -18,10 +17,10 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(63deg, #252525 23%, transparent 23%) 7px 0,
+  /* background: linear-gradient(63deg, #252525 23%, transparent 23%) 7px 0,
     linear-gradient(63deg, transparent 74%, #252525 78%),
     linear-gradient(63deg, transparent 34%, #252525 38%, #252525 58%, transparent 62%), #3c3c3c;
-  background-size: 16px 48px;
+  background-size: 16px 48px; */
 }
 
 .body-container {
@@ -58,7 +57,7 @@ body {
   margin-bottom: 5px;
 }
 
-.message-container> :first-child {
+.message-container > :first-child {
   margin-top: auto !important;
 }
 
@@ -75,7 +74,7 @@ body {
 }
 
 .outgoing-text {
-  background-color: #007AFF;
+  background-color: #007aff;
   color: white;
   max-width: 200px;
   display: flex;
@@ -132,7 +131,7 @@ body {
 
 .sendBtn {
   position: absolute;
-  background-color: #007AFF;
+  background-color: #007aff;
   border-radius: 5px;
   border: none;
   color: white;

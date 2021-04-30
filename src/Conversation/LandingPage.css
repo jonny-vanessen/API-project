@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+
+.titleContainer {
+  background-size: cover;
+  /* width: 100vw; */
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  font: bold;
+  color: red;
+  font-size: 150px;
+  text-shadow: 2px 2px 4px #000000;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.titleLine1,
+.titleLine2,
+.titleLine3 {
+  /* border: 4px dashed blue; */
+  transition: all 1s;
+  /* ENDING POINT BELOW*/
+  transform: translate(0, 0);
+  margin: 0;
+  padding: 0;
+}
+
+/* STARTING POINT */
+.start.titleLine1 {
+  transform: translate(300px, -600px);
+  color: black;
+  font-size: 1500px;
+  /* transform: rotate(180deg) translate(-300px, 600px); */
+}
+
+.start.titleLine2 {
+  transform: translate(0px, -90px);
+  color: black;
+  font-size: 1500px;
+}
+
+.start.titleLine3 {
+  transform: translate(-300px, 600px);
+  color: black;
+  font-size: 1500px;
+}

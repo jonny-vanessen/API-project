@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './Conversation.css';
-import axios from 'axios';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-
+import React, { useState, useEffect } from "react";
+import "./Conversation.css";
+import axios from "axios";
+// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 function Conversation(props) {
   let [voices, setVoices] = useState([]);
@@ -10,18 +9,15 @@ function Conversation(props) {
   let [isTrump, setIsTrump] = useState(true);
   let [typing, setTyping] = useState(false);
   let [dictation, setDictation] = useState(false);
-  let [speakText, setSpeakText] = useState('')
+  let [speakText, setSpeakText] = useState("");
 
   // Speech To Text
-  let { transcript, resetTranscript } = useSpeechRecognition()
-  console.log(transcript)
+  // let { transcript, resetTranscript } = useSpeechRecognition();
+  // console.log(transcript);
 
   function speechText() {
-    setDictation(true)
-
+    setDictation(true);
   }
-
-
 
   // return (
   //   <div>
@@ -32,7 +28,6 @@ function Conversation(props) {
   //   </div>
   // )
 
-
   //init tts
   let msg = new SpeechSynthesisUtterance();
 
@@ -41,39 +36,59 @@ function Conversation(props) {
     window.speechSynthesis.onvoiceschanged = () => {
       let allVoices = window.speechSynthesis.getVoices();
       console.log(allVoices);
-      setVoices(allVoices.filter((voice) => {
-        return voice.lang.includes('en')
-      }))
+      setVoices(
+        allVoices.filter((voice) => {
+          return voice.lang.includes("en");
+        })
+      );
     };
   }, []);
 
-  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return null
-  }
-
+  // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+  //   return null;
+  // }
 
   async function handleClick() {
-    setDictation(false)
-    let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
-      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet'];
+    setDictation(false);
+    let names = [
+      "Andres",
+      "Cody",
+      "Cynthia",
+      "Daniela",
+      "David",
+      "Dicky",
+      "Francisco",
+      "Hunter",
+      "Jesper",
+      "Joey",
+      "Jonny",
+      "Juan",
+      "Robert",
+      "Sumeet",
+    ];
     let name = names[Math.floor(Math.random() * names.length)];
-    const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
+    const response = await axios.get(
+      `https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`
+    );
     let tQuote = response.data.message;
 
-    if (tQuote.includes('http')) {
+    if (tQuote.includes("http")) {
       tQuote = tQuote.split(/(\s+)/);
 
       for (let i = 0; i < tQuote.length; i++) {
-        if (tQuote[i].substring(0, 4) === "http" || tQuote[i].substring(0, 5) === "https") {
+        if (
+          tQuote[i].substring(0, 4) === "http" ||
+          tQuote[i].substring(0, 5) === "https"
+        ) {
           tQuote.splice(i, 1);
         }
       }
       tQuote.join(" ");
     }
 
-    let scrollDiv = document.getElementById('msg-scroll');
+    let scrollDiv = document.getElementById("msg-scroll");
 
-    msg.text = 'test';
+    msg.text = "test";
     // msg.text = tQuote;
     msg.voice = voices[0];
     setConvo([...convo, trumpQuotes(tQuote)]);
@@ -82,57 +97,65 @@ function Conversation(props) {
     setTimeout(() => {
       setTyping(true);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
-    }, 1000)
+    }, 1000);
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
-      const response = await axios.get('https://api.kanye.rest/');
+      const response = await axios.get("https://api.kanye.rest/");
       // msg.text = response.data.quote;
-      msg.text = 'test';
+      msg.text = "test";
       msg.voice = voices[1];
-      setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
-      console.log('was this 2 seconds?');
+      setConvo((prevState) => [...prevState, kanyeQuotes(response.data.quote)]);
+      console.log("was this 2 seconds?");
       window.speechSynthesis.speak(msg);
       setTyping(false);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
-    }, 2000)
+    }, 2000);
   }
 
   function trumpQuotes(message) {
     return (
-      <div className='outgoing'>
-        <div className='outgoing-container'>
-          <span className='outgoing-text message-box'>{!dictation && message}{dictation && { transcript }}</span>
-          <span className='delivered'>Delivered</span>
+      <div className="outgoing">
+        <div className="outgoing-container">
+          <span className="outgoing-text message-box">
+            {!dictation && message}
+            {/* {dictation && { transcript }} */}
+          </span>
+          <span className="delivered">Delivered</span>
         </div>
       </div>
-    )
+    );
   }
 
   function kanyeQuotes(message) {
     return (
-      <div className='incoming'>
-        <div className='incoming-container'>
-          <span className='incoming-text message-box'>{message} </span>
+      <div className="incoming">
+        <div className="incoming-container">
+          <span className="incoming-text message-box">{message} </span>
         </div>
       </div>
-    )
+    );
   }
 
-
   return (
-    <div className='screenWrap'>
-      <div className='bannerWrap'>
-        <div className='clock'>4:12</div>
-        <div className='contactName'>Kanye</div>
-        <img src='../assets/textBanner.png' alt='kanye contact' />
+    <div className="screenWrap">
+      <div className="bannerWrap">
+        <div className="clock">4:12</div>
+        <div className="contactName">Kanye</div>
+        <img src="../assets/textBanner.png" alt="kanye contact" />
       </div>
-      <div id='msg-scroll' className='message-container' style={{ position: 'relative', textAlign: 'left' }}>
+      <div
+        id="msg-scroll"
+        className="message-container"
+        style={{ position: "relative", textAlign: "left" }}
+      >
         {convo}
-        {typing && <img id='dots' src='../assets/tenor.gif' />}
+        {typing && <img id="dots" src="../assets/tenor.gif" />}
       </div>
-      <button className='sendBtn' onClick={handleClick} >Send</button>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
+      <button className="sendBtn" onClick={handleClick}>
+        Send
+      </button>
+      {/* <button onClick={SpeechRecognition.startListening}>Start</button>
+      <button onClick={SpeechRecognition.stopListening}>Stop</button> */}
     </div>
   );
 }
