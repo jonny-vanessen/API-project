@@ -12,12 +12,18 @@ function Conversation(props) {
   let [typing, setTyping] = useState(false);
   let [isSpeaking, setIsSpeaking] = useState(false);
   let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
-  let [canClickSend, setCanClickSend] = useState(true)
+  let [canClickSend, setCanClickSend] = useState(true);
+  let [audioLength, setAudioLength] = useState(2000)
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
   // Speech To Text
   let scrollDiv = document.getElementById('msg-scroll');
+
+  useEffect(() => {
+
+  }, []);
+
 
   let { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -75,154 +81,81 @@ function Conversation(props) {
   //init tts
   let msg = new SpeechSynthesisUtterance();
 
-  //get english voices
-  useEffect(() => {
-    window.speechSynthesis.onvoiceschanged = () => {
-      let allVoices = window.speechSynthesis.getVoices();
-      console.log(allVoices);
-      setVoices(allVoices.filter((voice) => {
-        return voice.lang.includes('en')
-      }))
-    };
-  }, []);
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null
   }
 
-  //Handles click of Send button
-  function handleSend() {
-    //TODO: set "typing" animation here
-    //TODO: state disable click send button
-
-    //globals
-    //const url = 'https://iron-cors-anywhere.herokuapp.com/https://mumble.stream/speak_spectrogram';
-    const url = 'https://mumble.stream/speak_spectrogram';
-    //TODO: speaker state set as var here
-    let wait = 0;
-    let wait2 = 0;
 
 
-    //get second quote
-    async function secondSpeakerQuote() {
-      //fetch new quote for speaker 2 (kanye in this example)
-      let response = await axios.get('https://api.kanye.rest/');
-      return response.data.quote
-    }
+  async function getQuotes() {
+    let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
+      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
+    let name = names[Math.floor(Math.random() * names.length)];
+    //random trump quote that uses student names
+    const firstQuoteResponse = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
+    const firstQuote = firstQuoteResponse.data.message
 
-    //get first quote
-    async function firstSpeakerQuote() {
-      let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
-        'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
-      let name = names[Math.floor(Math.random() * names.length)];
+    let secondQuoteResponse = await axios.get('https://api.kanye.rest/');
+    let secondQuote = secondQuoteResponse.data.quote
 
-      //random trump quote that uses student names
-      const response = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
-      return response.data.message;
-    }
-
-    //second speaker
-    async function secondStartSpeak() {
-      let quote = await secondSpeakerQuote();
-
-      //realistic response time...
-      setTimeout(() => {
-        //bring up typing bubble
-        setTyping(true);
-      }, 1000);
-
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: quote,
-          speaker: 'david-attenborough'
-        }),
-      }).then(res => res.json())
-        .then(async res => {
-          console.log(res);
-
-          //handle speaker 2 data
-          const data1 = `data:audio/wav;base64,${res.audio_base64}`;
-          let snd1 = new Audio(data1);
-
-          //set wait for allow click again
-          snd1.onloadedmetadata = await function () {
-            console.log(snd1, snd1.duration);
-            wait2 = snd1.duration * 1000
-          };
-          console.log(wait2);
-
-          //wait for talk
-          setTimeout(() => {
-
-            //stop typing bubble
-            setTyping(false);
-            scrollDiv.scrollTop = scrollDiv.scrollHeight;
-
-            //fill message
-            setConvo(prevState => [...prevState, kanyeQuotes(quote)]);
-            scrollDiv.scrollTop = scrollDiv.scrollHeight;
-
-            //play speaker 2
-            snd1.play();
-
-            //wait for allow click - AFTER TALKING of speaker 2
-            setTimeout(() => {
-              //TODO: enable button again here
-            }, wait2 + 500);
-          }, wait);
-        });
-    }
-
-    //first speaker
-    async function firstStartSpeak() {
-      let quote = await firstSpeakerQuote();
-
-      //fetch first speaker
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: quote,
-          speaker: 'donald-trump'
-        }),
-      })
-        .then(res => res.json())
-        .then(res => {
-          console.log(res);
-
-          //handle data from fetch
-          const data = `data:audio/wav;base64,${res.audio_base64}`;
-          let snd = new Audio(data);
-
-          //set wait time
-          snd.onloadedmetadata = function () {
-            console.log(snd, snd.duration);
-            wait = snd.duration * 1000
-          };
-          console.log(wait);
-
-          //await setIsTrump(false);
-          setConvo([...convo, trumpQuotes(quote)]);
-          scrollDiv.scrollTop = scrollDiv.scrollHeight;
-
-          //play sound
-          snd.play();
-
-          //TODO: stop 'typing' animation
-          secondStartSpeak();
-        });
-    }
-
-    firstStartSpeak()
+    return { firstQuote, secondQuote };
   }
+
+  async function getAudio(quote, speaker) {
+    const url = 'https://mumble.stream/speak_spectrogram';
+    let speakerAudio = await axios.post(url, {
+      text: quote,
+      speaker: speaker
+    })
+    return speakerAudio
+  }
+
+  function playAudio(speakerAudio) {
+    const data = `data:audio/wav;base64,${speakerAudio.data.audio_base64}`;
+    let audio = new Audio(data);
+
+    //set wait time
+    audio.onloadedmetadata = function () {
+      setAudioLength(audio.duration * 1000)
+    };
+
+    //play sound
+    audio.play();
+    return audioLength;
+  }
+
+  async function handleMessages() {
+    setCanClickSend(false)
+    const { firstQuote, secondQuote } = await getQuotes();
+    const firstSpeakerAudio = await getAudio(firstQuote, 'donald-trump');
+    playAudio(firstSpeakerAudio);
+    setConvo([...convo, trumpQuotes(firstQuote)]);
+
+    setTimeout(() => {
+      setTyping(true);
+    }, 500)
+
+    const delay = audioLength > 5000 ? audioLength + 500 : audioLength;
+
+    const secondSpeakerAudio = await getAudio(secondQuote, 'david-attenborough');
+    // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+
+    //TODO: stop 'typing' animation
+
+
+    setTimeout(() => {
+      playAudio(secondSpeakerAudio);
+      setTyping(false);
+      // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+
+
+      setConvo(prevState => [...prevState, kanyeQuotes(secondQuote)]);
+      // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+      setCanClickSend(true)
+    }, delay)
+  }
+
 
   function trumpQuotes(message) {
     return (
@@ -257,7 +190,7 @@ function Conversation(props) {
         {convo}
         {typing && <img id='dots' src='../assets/tenor.gif' />}
       </div>
-      <button className='sendBtn' onClick={handleSend} >Send</button>
+      <button className='sendBtn' disabled={!canClickSend} onClick={handleMessages}>Send</button>
       <button style={isSpeakingStyle} className='textSpeechBtn'>
         <img src="./assets/microphone.png" alt="microphone" onClick={!isSpeaking ? beginListening : doneListening} />
       </button>
