@@ -14,7 +14,7 @@ function Conversation(props) {
   let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
   let [canClickSend, setCanClickSend] = useState(true);
   let [audioLength, setAudioLength] = useState(2000)
-  let [currentSpeaker, setCurrentSpeaker] = useState('')
+  let [currentSpeaker, setCurrentSpeaker] = useState('donald-trump')
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
@@ -87,8 +87,6 @@ function Conversation(props) {
     return null
   }
 
-
-
   async function getQuotes() {
     let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
       'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
@@ -104,6 +102,7 @@ function Conversation(props) {
   }
 
   async function getAudio(quote, speaker) {
+    console.log(speaker)
     const url = 'https://mumble.stream/speak_spectrogram';
     let speakerAudio = await axios.post(url, {
       text: quote,
