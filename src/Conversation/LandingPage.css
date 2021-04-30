@@ -32,7 +32,7 @@
 /* STARTING POINT */
 .start.titleLine1 {
   transform: translate(300px, -600px);
-  color: black;
+  color: #fff;
   font-size: 1500px;
   /* transform: rotate(180deg) translate(-300px, 600px); */
 }
@@ -47,4 +47,54 @@
   transform: translate(-300px, 600px);
   color: black;
   font-size: 1500px;
+}
+
+#land-wrapper {
+  background-color: #4fbad4;
+  border-radius: 30px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-wrapper {
+  margin-bottom: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+.title {
+  color: #fff;
+  font-size: 4rem;
+}
+
+.description {
+  max-width: 400px;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+#submit {
+  margin-top: 30px;
+  background-color: white;
+  color: #4fbad4;
+  height: 50px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 0px 15px;
+}
+
+#submit:hover {
+  cursor: pointer;
+}
+
+#submit:focus {
+  outline: none;
 }
