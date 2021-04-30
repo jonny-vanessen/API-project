@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @font-face {
   font-family: "SF Pro";
   src: url("SFPro-Regular.woff2") format("woff2"),
@@ -18,10 +17,17 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  /* background: linear-gradient(63deg, #252525 23%, transparent 23%) 7px 0,
+  background: linear-gradient(63deg, #252525 23%, transparent 23%) 7px 0,
     linear-gradient(63deg, transparent 74%, #252525 78%),
-    linear-gradient(63deg, transparent 34%, #252525 38%, #252525 58%, transparent 62%), #3c3c3c;
-  background-size: 16px 48px; */
+    linear-gradient(
+      63deg,
+      transparent 34%,
+      #252525 38%,
+      #252525 58%,
+      transparent 62%
+    ),
+    #3c3c3c;
+  background-size: 16px 48px;
 }
 
 .body-container {
@@ -132,228 +138,8 @@ body {
 
 .sendBtn {
   position: absolute;
-  background-color: #007aff;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  bottom: -214px;
-  right: 3px;
-  z-index: 5;
-  width: 68px;
-  height: 31px;
-  cursor: pointer;
-}
-
-#dots {
-  height: 40px;
-  width: 70px;
-  margin-left: 5px;
-}
-
-.screenWrap {
-  position: relative;
-  height: 329px;
-  overflow: unset;
-  background-color: white;
-}
-
-.gif {
-  height: 45px;
-  padding-left: 220px;
-  padding-bottom: 300px;
-  position: absolute;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.bannerWrap {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  top: -59px;
-  height: 147px;
-  overflow: hidden;
-  z-index: 5;
-}
-
-.bannerWrap img {
-  position: relative;
-  top: -1px;
-  left: -7px;
-  width: 317px;
-  height: 250px;
-}
-
-.contactName {
-  position: absolute;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  top: 130px;
-  right: 143px;
-  height: 12px;
-  width: 50px;
-  z-index: 6;
-  background-color: whitesmoke;
-  color: #404040;
-  font-size: 10px;
-  font-weight: 600;
-  transform: scaleY(0.9);
-}
-
-.clock {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 65px;
-  left: 26px;
-  height: 18px;
-  width: 32px;
-  z-index: 6;
-  background-color: whitesmoke;
-  font-size: 14px;
-  font-weight: 600;
-  transform: scaleY(0.9);
-  color: #1f1f1f;
-}
-=======
-@font-face {
-  font-family: 'SF Pro';
-  src: url('SFPro-Regular.woff2') format('woff2'),
-    url('SFPro-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-body {
-  font-family: 'SF Pro';
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: linear-gradient(63deg, #252525 23%, transparent 23%) 7px 0,
-    linear-gradient(63deg, transparent 74%, #252525 78%),
-    linear-gradient(63deg, transparent 34%, #252525 38%, #252525 58%, transparent 62%), #3c3c3c;
-  background-size: 16px 48px;
-}
-
-.body-container {
-  display: flex;
-  border-top: 5px #4ebdd7 solid;
-  justify-content: space-evenly;
-  height: 605px;
-  background-color: #4fbad4;
-  border-radius: 15px;
-}
-
-.body-container img {
-  height: 100%;
-}
-
-.phone-container {
-  border-radius: 30px;
-  background-color: #d2d5dc;
-  height: 589px;
-  width: 299px;
-  border: 5px groove #5a5a5a;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  overflow: hidden;
-}
-
-.message-container {
-  height: 237px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  padding: 92px 5px 5px 5px;
-  margin-bottom: 5px;
-}
-
-.message-container> :first-child {
-  margin-top: auto !important;
-}
-
-.message-box {
-  border-radius: 15px;
-  padding: 10px;
-  text-align: left;
-}
-
-.outgoing {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 5px;
-}
-
-.outgoing-text {
-  background-color: #007AFF;
-  color: white;
-  max-width: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.incoming {
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 5px;
-  margin-bottom: 5px;
-}
-
-.incoming-text {
-  background-color: #d8d8d8;
-  color: black;
-  max-width: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.outgoing-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.delivered {
-  font-size: 12px;
-  padding-right: 5px;
-}
-
-#keyboard {
-  height: 260px;
-  width: 300px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  top: 332px;
-}
-
-.cartoon-contain {
-  height: 100%;
-}
-
-#kanye-img {
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-}
-
-#trump-img {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-
-.sendBtn {
-  position: absolute;
   font-weight: bold;
-  background-color: #007AFF;
+  background-color: #007aff;
   border: none;
   border-radius: 5px;
   color: white;
@@ -375,7 +161,7 @@ body {
 
 .textSpeechBtn {
   position: absolute;
-  background-color: #007AFF;
+  background-color: #007aff;
   border-radius: 50%;
   border: none;
   color: white;
@@ -465,4 +251,3 @@ body {
   transform: scaleY(0.9);
   color: #1f1f1f;
 }
->>>>>>> master
