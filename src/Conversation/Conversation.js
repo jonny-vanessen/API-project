@@ -14,7 +14,7 @@ function Conversation(props) {
   let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
   let [canClickSend, setCanClickSend] = useState(true);
   let [audioLength, setAudioLength] = useState(2000)
-  let [speaker, setSpeaker] = useState('')
+  let [currentSpeaker, setCurrentSpeaker] = useState('')
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
@@ -129,7 +129,7 @@ function Conversation(props) {
   async function handleMessages() {
     setCanClickSend(false)
     const { firstQuote, secondQuote } = await getQuotes();
-    const firstSpeakerAudio = await getAudio(firstQuote, 'donald-trump');
+    const firstSpeakerAudio = await getAudio(firstQuote, currentSpeaker);
     playAudio(firstSpeakerAudio);
     setConvo([...convo, trumpQuotes(firstQuote)]);
 
@@ -139,7 +139,7 @@ function Conversation(props) {
 
     const delay = audioLength > 5000 ? audioLength + 500 : audioLength;
 
-    const secondSpeakerAudio = await getAudio(secondQuote, 'spongebob-squarepants');
+    const secondSpeakerAudio = await getAudio(secondQuote, 'david-attenborough');
     // scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
     //TODO: stop 'typing' animation
@@ -159,7 +159,8 @@ function Conversation(props) {
 
 
   const handleChange = (e) => {
-    setSpeaker(e.target.value)
+    setCurrentSpeaker(e.target.value)
+    console.log(currentSpeaker)
   }
 
 
@@ -202,9 +203,10 @@ function Conversation(props) {
       </button>
       <select name="voices" id="voices" onChange={handleChange}>
         <option value="donald-trump">Donald Trump</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+        <option value="george-w-bush">George W Bush</option>
+        <option value="bill-clinton">Bill Clinton</option>
+        <option value="dr-phil-mcgraw">Dr Phil</option>
+        <option value="arnold-schwarzenegger">Arnold Schwarzenegger</option>
       </select>
     </div>
   )
