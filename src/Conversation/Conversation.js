@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './Conversation.css';
 import axios from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import celebrityQuotes from '../celebrityQuotes'
 // const incoming = new Audio('./assets/iPhone-receive.mp3')
 
 
 function Conversation(props) {
+
+  console.log('test')
+  console.log(celebrityQuotes)
+
   let [voices, setVoices] = useState([]);
   let [convo, setConvo] = useState([]);
   //let [isTrump, setIsTrump] = useState(true);
@@ -14,7 +19,8 @@ function Conversation(props) {
   let [isSpeakingStyle, setIsSpeakingStyle] = useState({});
   let [canClickSend, setCanClickSend] = useState(true);
   let [audioLength, setAudioLength] = useState(2000)
-  let [currentSpeaker, setCurrentSpeaker] = useState('')
+  let [currentSpeaker, setCurrentSpeaker] = useState('donald-trump')
+  let [name, setName] = useState('Hunter')
 
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
@@ -24,6 +30,10 @@ function Conversation(props) {
   useEffect(() => {
 
   }, []);
+
+  function dashToCamel(celebrity) {
+    return celebrity.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+  }
 
 
   let { transcript, resetTranscript } = useSpeechRecognition()
@@ -37,9 +47,9 @@ function Conversation(props) {
     return (`${hours}:${minutes}`)
   }
 
-  // setInterval(() => {
-  //   setTime(today.getHours() + ":" + today.getMinutes())
-  // }, 60000)
+
+  let receiveMessageAudio = new Audio('../assets/iPhone-receive.mp3');
+  let typingClick = new Audio('../assets/typingClick.mp3');
 
   //handle Listen Mic
   function beginListening() {
@@ -68,34 +78,40 @@ function Conversation(props) {
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
-      msg.text = response.data.quote;
+      receiveMessageAudio.play()
       // msg.text = 'test';
-      msg.voice = voices[0];
-      setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
-      window.speechSynthesis.speak(msg);
       setTyping(false);
+      setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 2000)
   }
 
-
-  //init tts
-  let msg = new SpeechSynthesisUtterance();
 
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null
   }
 
-
-
   async function getQuotes() {
-    let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
-      'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
-    let name = names[Math.floor(Math.random() * names.length)];
-    //random trump quote that uses student names
-    const firstQuoteResponse = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
-    const firstQuote = firstQuoteResponse.data.message
+    let firstQuote = '';
+    if (currentSpeaker === 'donald-trump') {
+      let names = ['Andres', 'Cody', 'Cynthia', 'Daniela', 'David', 'Dicky', 'Francisco',
+        'Hunter', 'Jesper', 'Joey', 'Jonny', 'Juan', 'Robert', 'Sumeet', 'Niko', 'Val'];
+      setName(names[Math.floor(Math.random() * names.length)]);
+      //random trump quote that uses student names
+      const firstQuoteResponse = await axios.get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${name}`);
+      firstQuote = firstQuoteResponse.data.message
+    } else {
+      let celebrityName = dashToCamel(currentSpeaker)
+      console.log(celebrityQuotes[celebrityName][0])
+      console.log(typeof celebrityName)
+
+
+      const firstQuoteResponse = await celebrityQuotes[celebrityName][Math.floor(Math.random() * celebrityQuotes[celebrityName].length)];
+      console.log(firstQuoteResponse)
+      firstQuote = firstQuoteResponse
+    }
+
 
     let secondQuoteResponse = await axios.get('https://api.kanye.rest/');
     let secondQuote = secondQuoteResponse.data.quote
@@ -104,6 +120,7 @@ function Conversation(props) {
   }
 
   async function getAudio(quote, speaker) {
+    console.log(speaker)
     const url = 'https://mumble.stream/speak_spectrogram';
     let speakerAudio = await axios.post(url, {
       text: quote,
@@ -111,6 +128,7 @@ function Conversation(props) {
     })
     return speakerAudio
   }
+
 
   function playAudio(speakerAudio) {
     const data = `data:audio/wav;base64,${speakerAudio.data.audio_base64}`;
@@ -133,20 +151,21 @@ function Conversation(props) {
     playAudio(firstSpeakerAudio);
     setConvo([...convo, trumpQuotes(firstQuote)]);
 
+    const delay = audioLength > 3000 ? audioLength + 1000 : audioLength;
+
     setTimeout(() => {
       setTyping(true);
-    }, 500)
+    }, delay)
 
-    const delay = audioLength > 5000 ? audioLength + 500 : audioLength;
 
-    const secondSpeakerAudio = await getAudio(secondQuote, 'david-attenborough');
+
     // scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
     //TODO: stop 'typing' animation
 
 
     setTimeout(() => {
-      playAudio(secondSpeakerAudio);
+      receiveMessageAudio.play();
       setTyping(false);
       // scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
@@ -154,7 +173,7 @@ function Conversation(props) {
       setConvo(prevState => [...prevState, kanyeQuotes(secondQuote)]);
       // scrollDiv.scrollTop = scrollDiv.scrollHeight;
       setCanClickSend(true)
-    }, delay)
+    }, delay + 2000)
   }
 
 
@@ -207,6 +226,7 @@ function Conversation(props) {
         <option value="bill-clinton">Bill Clinton</option>
         <option value="dr-phil-mcgraw">Dr Phil</option>
         <option value="arnold-schwarzenegger">Arnold Schwarzenegger</option>
+        <option value="gilbert-gottfried">Gilbert Gottfried</option>
       </select>
     </div>
   )
