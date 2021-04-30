@@ -156,10 +156,7 @@ function Conversation(props) {
     setTimeout(() => {
       setTyping(true);
     }, delay)
-
-
-
-    // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
     //TODO: stop 'typing' animation
 
@@ -167,11 +164,11 @@ function Conversation(props) {
     setTimeout(() => {
       receiveMessageAudio.play();
       setTyping(false);
-      // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
 
       setConvo(prevState => [...prevState, kanyeQuotes(secondQuote)]);
-      // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
       setCanClickSend(true)
     }, delay + 2000)
   }
