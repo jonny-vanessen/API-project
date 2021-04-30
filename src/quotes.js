@@ -105,4 +105,17 @@ let quotes = {
     "Humor is everywhere in that theres irony in just about anything a human does.",
     "The more you find out about the world, the more opportunities there are to laugh at it.",
   ],
+
+  philMcgraw: [
+    "Its better to be healthy alone than sick with someone else.",
+    "You dont need a ropte to pinch a stangers butt.",
+    "You dont need a pack of wild horses to learn how to make a sandwich",
+    "Common sense needs to be more common.",
+    "Eighty percent of all questoins are statemnts in disguise",
+    "Stand up and walk out of your history",
+    "Nothing is funnier to me than lauging at myself.",
+    "No matter how flat you make a pancake, its still got two sides.",
+    "I didnt just come in on a load of turnips!",
+    "Im not a politician",
+  ],
 };
