@@ -11,13 +11,12 @@ function App() {
         </div>
         <div className='phone-container'>
           <Conversation />
-          <img id='keyboard' src='../assets/keyboard.jpeg' alt='keyboard'/>
+          <img id='keyboard' src='../assets/keyboard.jpeg' alt='keyboard' />
         </div>
         <div className='cartoon-contain'>
           <img id='trump-img' src='../assets/trump.png' alt='trump' />
         </div>
       </div>
-      <Dropdown />
     </div>
   );
 }
