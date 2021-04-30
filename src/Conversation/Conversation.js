@@ -22,10 +22,12 @@ function Conversation(props) {
   let [currentSpeaker, setCurrentSpeaker] = useState('donald-trump')
   let [name, setName] = useState('Hunter')
 
+  let scrollDiv = document.querySelector('#msg-scroll');
+
   // let [time, setTime] = useState(today.getHours() + ":" + today.getMinutes())
 
   // Speech To Text
-  let scrollDiv = document.getElementById('msg-scroll');
+
 
   useEffect(() => {
 
@@ -73,8 +75,10 @@ function Conversation(props) {
     //setIsTrump(false);
     setTimeout(() => {
       setTyping(true);
+      scrollDiv = document.querySelector('#msg-scroll');
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 1000)
+    scrollDiv = document.querySelector('#msg-scroll');
     scrollDiv.scrollTop = scrollDiv.scrollHeight;
     setTimeout(async () => {
       const response = await axios.get('https://api.kanye.rest/');
@@ -82,6 +86,7 @@ function Conversation(props) {
       // msg.text = 'test';
       setTyping(false);
       setConvo(prevState => [...prevState, kanyeQuotes(response.data.quote)]);
+      scrollDiv = document.querySelector('#msg-scroll');
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }, 2000)
   }
@@ -156,10 +161,8 @@ function Conversation(props) {
     setTimeout(() => {
       setTyping(true);
     }, delay)
-
-
-
-    // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    scrollDiv = document.querySelector('#msg-scroll');
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
     //TODO: stop 'typing' animation
 
@@ -167,11 +170,11 @@ function Conversation(props) {
     setTimeout(() => {
       receiveMessageAudio.play();
       setTyping(false);
-      // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
 
 
       setConvo(prevState => [...prevState, kanyeQuotes(secondQuote)]);
-      // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
       setCanClickSend(true)
     }, delay + 2000)
   }
@@ -228,6 +231,7 @@ function Conversation(props) {
         <option value="arnold-schwarzenegger">Arnold Schwarzenegger</option>
         <option value="gilbert-gottfried">Gilbert Gottfried</option>
       </select>
+      <img id='keyboard' src='../assets/imgs/k1.jpeg' alt='keyboard' />
     </div>
   )
 }
